@@ -82,8 +82,30 @@ public class AddressBook {
             exception.printStackTrace();
         }
     }
+    public static void dateInRange() {
+        /**
+         * In this method read the joining date of employee payroll service database
+         */
+        try {
+            Connection connection = DriverManager.getConnection(jdbc, userName, password);
+            String query = "SELECT * FROM addressbook WHERE startDate BETWEEN '2022-01-01' AND '2022-12-31'";
+            PreparedStatement prepare = connection.prepareStatement(query);
+            ResultSet result = prepare.executeQuery();
+            while (result.next()) {
+                System.out.print("first name : ");
+                System.out.print(result.getString("firstName"));
+                System.out.print(" , last name : ");
+                System.out.print(result.getString("lastName"));
+                System.out.print(" , joining date : ");
+                System.out.print(result.getDate("startDate"));
+                System.out.println();
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
-        edit();
+        dateInRange();
     }
 }
