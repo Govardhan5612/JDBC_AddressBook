@@ -1,5 +1,11 @@
 package org.bridgeLabz;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -158,9 +164,59 @@ public class AddressBook {
             exception.printStackTrace();
         }
     }
-
+    @SuppressWarnings("unchecked")
+    public static void jsonWriter() {
+        /**
+         * Use json dependencies to write json files
+         */
+        JSONObject contactDetails = new JSONObject();
+        contactDetails.put("firstName", "Govardhan");
+        contactDetails.put("lastName", "Reddy");
+        contactDetails.put("address", "tirupati");
+        contactDetails.put("city","Trupati");
+        contactDetails.put("State","AndhraPradesh");
+        contactDetails.put("zip","123456");
+        contactDetails.put("phoneNumber","8555850406");
+        contactDetails.put("email","lokesh@gmail.com");
+        JSONObject contactObject = new JSONObject();
+        contactObject.put("contact details", contactDetails);
+        JSONObject contactDetails1 = new JSONObject();
+        contactDetails1.put("firstName", "Lokesh");
+        contactDetails1.put("lastName", "Gupta");
+        contactDetails1.put("address", "tirupati");
+        contactDetails1.put("city","Trupati");
+        contactDetails1.put("State","AndhraPradesh");
+        contactDetails1.put("zip","123456");
+        contactDetails1.put("phoneNumber","8555850406");
+        contactDetails1.put("email","govardhan@gmail.com");
+        JSONObject contactObject1 = new JSONObject();
+        contactObject.put("contact details", contactDetails1);
+        JSONArray contactList = new JSONArray();
+        contactList.add(contactObject);
+        contactList.add(contactObject1);
+        try (FileWriter file = new FileWriter("C:\\Users\\govar\\Desktop\\BridgeLabz Daily Assignments\\AddressBook_JDBC\\src\\main\\java\\org\\bridgeLabz\\AddressBook.json")) {
+            file.write(contactList.toJSONString());
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+    @SuppressWarnings("unchecked")
+    public static void jsonFileRead() {
+        /**
+         * Use json dependencies to read json files
+         */
+        JSONParser jsonParser = new JSONParser();
+        try (FileReader reader = new FileReader("C:\\Users\\govar\\Desktop\\BridgeLabz Daily Assignments\\AddressBook_JDBC\\src\\main\\java\\org\\bridgeLabz\\AddressBook.json")) {
+            Object object = jsonParser.parse(reader);
+            JSONArray contactList = (JSONArray) object;
+            System.out.println(contactList);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
-        add();
+        jsonWriter();
+        jsonFileRead();
     }
 
 }
